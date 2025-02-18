@@ -10,9 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Service {
     public Service() {}
@@ -59,6 +57,28 @@ public class Service {
             }
         }
     }
+
+    public void sortEvents(){
+        List<Event> Matchs = readXML();
+        List<Event> filteredMatchs = new ArrayList<>();
+        for(Event c:Matchs){
+            if(c.getStufe().equals(Event.Stufe.Jonin))
+            {
+                filteredMatchs.add(c);
+            }
+        }
+        Collections.sort(filteredMatchs, new Comparator<Event>() {
+            @Override
+            public int compare(Event o1, Event o2) {
+                return o2.getDatum().compareTo(o1.getDatum());
+            }
+        });
+        for(Event e:filteredMatchs){
+            System.out.println(e.getDatum()+ ": " + e.getCharaktername()+ " - " + e.getBeschreibung());
+        }
+
+    }
+
 
 
 
