@@ -12,6 +12,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Service {
     public Service() {}
@@ -45,6 +46,50 @@ public class Service {
         }
         return events;
     }
+
+
+    public void getMinimalCap() {
+        System.out.println("Please enter the minimum capacity:");
+        Scanner sc = new Scanner(System.in);
+        double minCap = Double.parseDouble(sc.nextLine());
+        List<Event> matches = readXML();
+        for(Event e:matches){
+            if(e.getKraftpunkte()>=minCap){
+                System.out.println(e.getKraftpunkte());
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
