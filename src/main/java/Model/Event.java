@@ -9,9 +9,12 @@ public class Event {
     private String Beschreibung;
     private LocalDate Datum;
     private double Kraftpunkte;
+
+
     public enum Stufe{
         Genin, Chunin, Jonin, Kage
     }
+    public Event() {}
 
     public Event(int id, String charaktername, Event.Stufe stufe, String beschreibung, LocalDate datum, double kraftpunkte) {
         this.id = id;
