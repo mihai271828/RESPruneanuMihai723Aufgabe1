@@ -8,7 +8,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -80,7 +82,47 @@ public class Service {
     }
 
 
+    public void anzahlProEvent() {
 
+        try {
+            List<Event> filteredCases = readXML();
+
+            // Count one event per occurrence for each house
+            Map<String, Integer> eventCount = new HashMap<>();
+            for (Event event : filteredCases) {
+                Event.Stufe Disease = event.getStufe();
+                eventCount.put(String.valueOf(Disease), eventCount.getOrDefault(Disease, 0) + 1);
+            }
+
+            // Convert the map to a list for sorting
+            List<Map.Entry<String, Integer>> sortedHouses = new ArrayList<>(eventCount.entrySet());
+            Collections.sort(sortedHouses, new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    int cmp = Integer.compare(o2.getValue(), o1.getValue()); // Descending by count
+                    return cmp;
+                }
+            });
+
+            // Build output lines in the format "House#Count"
+            List<String> outputs = new ArrayList<>();
+            for (Map.Entry<String, Integer> entry : sortedHouses) {
+                outputs.add(entry.getKey() + "#" + entry.getValue());
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/input/gesammtzahl.txt"))) {
+                for (String output : outputs) {
+                    bw.write(output);
+                    bw.newLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

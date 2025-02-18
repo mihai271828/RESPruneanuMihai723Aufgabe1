@@ -9,10 +9,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Service service=new Service();
-        List<Event> even=service.readXML();
-        for(Event e:even){
-            System.out.println(e);
-        }
+//        List<Event> even=service.readXML();
+//        for(Event e:even){
+//            System.out.println(e);
+//        }
+        service.anzahlProEvent();
 
 
     }
